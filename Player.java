@@ -10,6 +10,12 @@ public class Player {
     private Stack<String> inventory; // Inventory stack to store items
     private int health; // Current health points
     private final int maxHealth = 100; // Maximum health points
+    
+    //setting up boundries around the dungeon so we dont wonder off the grid
+    private final int minX = -2; 
+    private final int maxX = 2;
+    private final int minY = -2;
+    private final int maxY = 2;
 
     // Constructor initializes the player's position, health, and empty inventory
     public Player() {
@@ -34,19 +40,31 @@ public class Player {
      * Accepts strings: "north", "south", "east", "west".
      */
     public void move(String direction) {
+        
         switch (direction) {
             case "north":
-                y += 1;
+                if (y + 1 <= maxY) {
+                    y += 1;
+                }
                 break;
             case "south":
-                y -= 1;
+                if (y - 1 >= minY) {
+                    y -= 1;
+                }
                 break;
             case "east":
-                x += 1;
+                if (x + 1 <= maxX) {
+                    x += 1;
+                }
                 break;
             case "west":
-                x -= 1;
+                if (x - 1 >= minX){
+                    x -= 1;
+                }
                 break;
+            default:
+                System.out.println("Invalid direction.");
+                return;
         }
 
         System.out.println("Moved " + direction + " to (" + x + ", " + y + ")");
