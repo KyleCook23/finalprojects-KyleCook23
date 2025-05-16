@@ -1,11 +1,12 @@
-//The enemy class represents any enemy character in the dungeon.
-//Such as Skeletons, Ghosts, or the Dungeon Lord.
-//It stores the enemy's name, health points, and attack damage.
-
+/*
+ * The Enemy class represents a hostile creature that the player can fight.
+ * It contains properties such as name, health, and attack power.
+ * It also provides methods for combat interactions.
+ */
 public class Enemy {
-    private String name;
-    private int health;
-    private int attack;
+    private String name; // Name of the enemy (e.g., "Goblin", "Dungeon Lord")
+    private int health; // Current health of the enemy
+    private int attack; // Attack strength (how much damage it deals per attack)
 
     //Constructor: creates a new enemy with a name, starting health, and attack value
     public Enemy(String name, int health, int attack) {

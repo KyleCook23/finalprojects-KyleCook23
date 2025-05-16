@@ -1,7 +1,9 @@
 import java.util.Stack;
 
-// The Player class represents the user-controlled character in the dungeon.
-// It keeps track of the player's position, health, inventory, and actions.
+/*
+ * The Player class represents the player-controlled character.
+ * It tracks the player's position (x,y), health, and inventory (using a stack).
+ */
 public class Player {
     private int x; // Player's x-coordinate in the dungeon grid
     private int y; // Player's y-coordinate in the dungeon grid
@@ -27,7 +29,10 @@ public class Player {
         return y;
     }
 
-    // Moves the player one tile in the specified direction
+    /*
+     * Moves the player in the specified direction by updating x or y.
+     * Accepts strings: "north", "south", "east", "west".
+     */
     public void move(String direction) {
         switch (direction) {
             case "north":
@@ -70,7 +75,10 @@ public class Player {
         }
     }
 
-    // Uses the top item in the inventory (like a healing potion)
+    /*
+     * Uses the top item in the inventory stack. Healing potions heal the player.
+     * If the item is not a Healing Potion, it has no effect.
+     */
     public void useItem() {
         if (!inventory.isEmpty()) {
             String used = inventory.pop();
@@ -79,7 +87,7 @@ public class Player {
 
             // Only Healing Potion has an effect
             if (used.equalsIgnoreCase("Healing Potion")) {
-                heal(20);
+                heal(20); // Heal by 20 points
             } else {
                 System.out.println("Nothing happens.");
                 System.out.println();
@@ -95,13 +103,16 @@ public class Player {
         return health;
     }
 
-    // Reduces the player's health by a specified damage amount
+    /*
+     * Reduces the player's health by a given damage amount.
+     * Ensures health doesn't fall below 0.
+     */
     public void takeDamage(int damage) {
         health -= damage;
         if (health < 0) health = 0;
     }
 
-    // Increases the player's health by a set amount (e.g., healing)
+    // Increases player's health, but does not exceed maxHealth.
     public void heal(int amount) {
         health += amount;
         if (health > maxHealth) health = maxHealth;

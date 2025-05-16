@@ -1,30 +1,33 @@
 import java.util.HashMap;
 
-// The Dungeon class manages the dungeon map, including room descriptions,
-// enemies, and items placed throughout the map.
+/*
+ * The Dungeon class manages all the rooms, enemies, and items in the dungeon.
+ * It uses HashMaps to map coordinates (as string keys) to their room description,
+ * any enemy present, or items in that room.
+ */
 public class Dungeon {
     
-    //stores descriptions for each room using coordinaes as keys (e.g., "0,0")
+    // A HashMap that maps coordinates (like "0,1") to a String description of the room.
     private HashMap<String, String> rooms;
 
-    //stores enimies at specific coordinates
+    // A HashMap that maps coordinates to an Enemy object, if an enemy exists at that position.
     private HashMap<String, Enemy> enemies;
 
-    //stores items located in rooms
+    // A HashMap that maps coordinates to item names, used to track what item is on the ground.
     private HashMap<String, String> roomItems;
 
-    //Constructor initializes the room, enemy, and item maps
+    // Constructor initializes all room, enemy, and item maps and populates the dungeon data.
     public Dungeon() {
         rooms = new HashMap<>();
         enemies = new HashMap<>();
         roomItems = new HashMap<>();
-        populateDungeon(); // Fill the dungeon with initial data
+        populateDungeon(); // Sets up all initial data.
     }
 
-    //populates the dungeon with room descriptions, enemies, and items
+    // This private method sets up the room descriptions, enemy placements, and items.
     private void populateDungeon() {
         
-        // add descriptions for each room. Each key represenmts a coordinate on the map.
+        // Populate descriptions for each room using its coordinate key.
         rooms.put("-2,-2", "You stand at the entrance of a dark and musty dungeon.");
         rooms.put("-2,-1", "A moss-covered hallway stretches before you.");
         rooms.put("-2,0", "You enter a dimly lit room.");
@@ -51,7 +54,7 @@ public class Dungeon {
         rooms.put("2,1", "A moss-covered hallway stretches before you.");
         rooms.put("2,2", "You have reached a grand chamber glittering with gold. A terrifying shadow stirs... the Dungeon Lord awaits!");
 
-        // places enimies in specific rooms with health and attack values
+        // Populate enemies in specific rooms.
         enemies.put("-2,2", new Enemy("Skeleton", 20, 5));
         enemies.put("-1,1", new Enemy("Ghost", 12, 3));
         enemies.put("1,-1", new Enemy("Snake", 3, 4));
@@ -60,7 +63,7 @@ public class Dungeon {
         enemies.put("-1,-1", new Enemy("Statue", 25, 2));
         enemies.put("2,2", new Enemy("Dungeon Lord", 50, 10));
 
-        // place healing potions in a variety of rooms
+        // Place healing potions in several rooms
         String[] potionLocations = {
             "-2,2", "-2,1", "-2,0", "-2,-1",
             "-1,0", "0,0", "1,0", "2,1", "2,0", "2,-1", "2,-2"
@@ -70,9 +73,12 @@ public class Dungeon {
         }
     }
 
-    //prints the description of the room at the given coordinates
+    /*
+     * Outputs a description of the current room based on the player's x and y position.
+     * Also shows enemies and items if present.
+     */
     public void describeRoom(int x, int y) {
-        String key = x + "," + y;
+        String key = x + "," + y; // Convert coordinates to a key string.
 
         if (rooms.containsKey(key)) {
 
@@ -96,28 +102,28 @@ public class Dungeon {
         }
     }
 
-    //Adds a new enemy to a room, if one dosent already exsist there
+    // Adds a new enemy to a specific room only if no enemy is already there.
     public void addEnemy(int x, int y, Enemy enemy) {
         String key = x + "," + y;
         enemies.putIfAbsent(key, enemy);
     }
 
-    //Gets the enemy located at a given position
+    // Retrieves the Enemy object at a given coordinate.
     public Enemy getEnemyAt(int x, int y) {
         return enemies.get(x + "," + y);
     }
 
-    //Adds an item to a specific room
+     // Adds an item to a specific room (e.g., Healing Potion).
     public void addItemToRoom(int x, int y, String item) {
         roomItems.put(x + "," + y, item);
     }
 
-    //Gets the item located at a specific room
+    // Gets the item in the room, if any.
     public String getItemAt(int x, int y) {
         return roomItems.get(x + "," + y);
     }
 
-    //Removes an item from a room (e.g., after player picks it up)
+    // Removes the item after the player picks it up.
     public void removeItemAt(int x, int y) {
         roomItems.remove(x + "," + y);
     }

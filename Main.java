@@ -1,14 +1,16 @@
-import java.util.Scanner;
+import java.util.Scanner; // Scanner is used to read player input
 
-//The main class is the entry point for the dungeon adventure game.
-//It handels user input, game flow, and interacts with the player and dungeon
+/*
+ * Main class: Entry point of the game.
+ * Handles game loop, player actions, combat, movement, inventory use, and win/lose conditions.
+ */
 public class Main {
     static Scanner scanner = new Scanner(System.in); // Scanner for user input
     static Player player = new Player(); // Create player object
     static Dungeon dungeon = new Dungeon(); // Create dungeon object
 
     public static void main(String[] args) {
-        boolean running = true;
+        boolean running = true;  // Controls the main game loop
         System.out.println("Welcome to the Dungeon Adventure!");
         System.out.println();
 
@@ -19,7 +21,7 @@ public class Main {
 
             // Prompt the player for input
             System.out.print("Enter a command (north / south / east / west / inventory / fight / use / quit): ");
-            String command = scanner.nextLine().toLowerCase();
+            String command = scanner.nextLine().toLowerCase(); // Normalize to lowercase
             System.out.println();
 
             // Handle the player's command
@@ -31,6 +33,8 @@ public class Main {
                     
                     // Move the player in the chosen direction
                     player.move(command);
+
+                     // Show current status
                     System.out.println("Status → Health: " + player.getHealth() + " | Inventory Items: " + player.getInventory().size());
                     System.out.println("--------------------------------------------------");
 
@@ -75,11 +79,11 @@ public class Main {
                     while (enemy.isAlive()) {
                         System.out.print("Choose your action (attack / run): ");
                         System.out.println();
-                        String action = scanner.nextLine().toLowerCase();
+                        String action = scanner.nextLine().toLowerCase(); // Normalize user input
 
                         if (action.equals("attack")) {
-                            int damage = 5;
-                            enemy.takeDamage(damage);
+                            int damage = 5; // Player always deals 5 damage
+                            enemy.takeDamage(damage); // Apply damage to enemy
                             System.out.println("You hit the " + enemy.getName() + " for " + damage + " damage!");
                             System.out.println();
 
@@ -96,14 +100,14 @@ public class Main {
                                     System.out.println("You defeated the " + enemy.getName() + "!");
                                 }
                                 System.out.println();
-                                break;
+                                break; // Exit the combat loop
                             }
 
                              // Enemy attacks back
                             int enemyDamage = enemy.getAttack();
                             System.out.println("The " + enemy.getName() + " hits you for " + enemyDamage + "!");
                             System.out.println();
-                            player.takeDamage(enemyDamage);
+                            player.takeDamage(enemyDamage); // Apply damage to player
                             System.out.println("Your current health: " + player.getHealth());
                             System.out.println();
 
@@ -119,7 +123,7 @@ public class Main {
                             // Player runs away from battle
                             System.out.println("You fled from the fight!");
                             System.out.println();
-                            break;
+                            break; // Exit the combat loop without ending game
                         } else {
 
                             // Invalid battle command
