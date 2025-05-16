@@ -45,21 +45,33 @@ public class Player {
             case "north":
                 if (y + 1 <= maxY) {
                     y += 1;
+                }else {
+                    System.out.println("You cant move North, there is a wall there");
+                    System.out.println();
                 }
                 break;
             case "south":
                 if (y - 1 >= minY) {
                     y -= 1;
+                }else {
+                    System.out.println("You cant move South, there is a wall there");
+                    System.out.println();
                 }
                 break;
             case "east":
                 if (x + 1 <= maxX) {
                     x += 1;
+                }else {
+                    System.out.println("You cant move East, there is a wall there");
+                    System.out.println();
                 }
                 break;
             case "west":
                 if (x - 1 >= minX){
                     x -= 1;
+                }else {
+                    System.out.println("You cant move Weast, there is a wall there");
+                    System.out.println();
                 }
                 break;
             default:

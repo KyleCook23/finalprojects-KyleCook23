@@ -22,6 +22,7 @@ public class Main {
             // Prompt the player for input
             System.out.print("Enter a command (north / south / east / west / inventory / fight / use / quit): ");
             String command = scanner.nextLine().toLowerCase(); // Normalize to lowercase
+            System.out.println("--------------------------------------------------");
             System.out.println();
 
             // Handle the player's command
@@ -36,7 +37,6 @@ public class Main {
 
                      // Show current status
                     System.out.println("Status → Health: " + player.getHealth() + " | Inventory Items: " + player.getInventory().size());
-                    System.out.println("--------------------------------------------------");
 
                     // Check if there's an enemy in the new room
                     Enemy enemy = dungeon.getEnemyAt(player.getX(), player.getY());
@@ -78,8 +78,9 @@ public class Main {
                     // Simple turn-based battle loop
                     while (enemy.isAlive()) {
                         System.out.print("Choose your action (attack / run): ");
-                        System.out.println();
                         String action = scanner.nextLine().toLowerCase(); // Normalize user input
+                        System.out.println("--------------------------------------------------");
+                        System.out.println();
 
                         if (action.equals("attack")) {
                             int damage = 5; // Player always deals 5 damage
